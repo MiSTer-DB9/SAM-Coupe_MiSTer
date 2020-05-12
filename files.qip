@@ -8,3 +8,5 @@ set_global_assignment -name VERILOG_FILE rtl/mouse.v
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/keyboard.sv
 set_global_assignment -name SDC_FILE SAMCoupe.sdc
 set_global_assignment -name SYSTEMVERILOG_FILE SAMCoupe.sv
+set_global_assignment -name VERILOG_FILE rtl/joydb9md.v
+set_global_assignment -name VERILOG_FILE rtl/joydb15.v
