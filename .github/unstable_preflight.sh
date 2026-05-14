@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# [MiSTer-DB9 BEGIN] - unstable pre-flight skip check
+# unstable pre-flight skip check
 #
 # Runs right after actions/checkout, BEFORE the Resolve / Cache & load Quartus
 # image workflow steps. Performs the cheap pre-merge work:
@@ -27,8 +27,9 @@ source "${SCRIPT_DIR}/compute_source_hash.sh"
 # shellcheck source=gha_emit.sh
 source "${SCRIPT_DIR}/gha_emit.sh"
 
-UPSTREAM_REPO="https://github.com/MiSTer-devel/SAM-Coupe_Mister.git"
+UPSTREAM_REPO="https://github.com/MiSTer-devel/SAM-Coupe_MiSTer.git"
 MAIN_BRANCH="master"
+UPSTREAM_BRANCH="master"
 
 # shellcheck source=unstable_lib.sh
 source "${SCRIPT_DIR}/unstable_lib.sh"
@@ -44,8 +45,8 @@ echo "Fetching upstream:"
 git remote remove upstream 2> /dev/null || true
 git remote add upstream "${UPSTREAM_REPO}"
 retry -- git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules upstream
-UPSTREAM_SHA=$(git rev-parse "remotes/upstream/${MAIN_BRANCH}")
-echo "Upstream HEAD @ ${MAIN_BRANCH}: ${UPSTREAM_SHA}"
+UPSTREAM_SHA=$(git rev-parse "remotes/upstream/${UPSTREAM_BRANCH}")
+echo "Upstream HEAD @ ${UPSTREAM_BRANCH}: ${UPSTREAM_SHA}"
 
 export GIT_MERGE_AUTOEDIT=no
 git config --global user.email "theypsilon@gmail.com"
@@ -135,4 +136,3 @@ emit_env UNSTABLE_BRANCH_SHA_BEFORE "${UNSTABLE_BRANCH_SHA_BEFORE}"
 emit_env RELEASE_EXISTS "${RELEASE_EXISTS}"
 
 emit_skip false
-# [MiSTer-DB9 END]
